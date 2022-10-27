@@ -1,4 +1,4 @@
-import java.util.*;
+ import java.util.*;
 /**
  * Write a description of class coin_flip here.
  *
@@ -66,7 +66,7 @@ public class coin_flip
          *      the logical complement operator (i.e. !)
          */
         
-        if (! str1.equals(str2)){
+        if (! str1.equals(str2)){{
             System.out.println("string are NOT equal");
         }
         
@@ -79,13 +79,22 @@ public class coin_flip
          *      <0: if str1<str2 lexicographically
          *      >0: if str1>ste2 lexicographically
          */
-        
+        int result = str1.compareTo(str2);
+        String firstStr = null;
         if (result<0){
             String firstStr = str1;
         }
         else if(result>0){
             String firstStr = str2;
         }
+        
+        if(firstStr != null){
+            System.out.println("The first string is: "+firstStr);
+        }
+        else{
+            System.out.println("Strings are equal");
+        }
+        
         }
     }
 }
