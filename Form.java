@@ -11,7 +11,7 @@ public class Form
     private boolean isValid;
     private int streetNum;
     private int age;
-
+    
     /**
      * Constructor for objects of class Form.
      * 
@@ -110,7 +110,22 @@ public class Form
      */
     private int validateAndConvertAge(String ageStr)
     {
-        return 0;
+        if(ageStr.trim() ==""){
+            System.out.println("Empty");
+            this.isValid = false;
+        }
+        else if(convertStringToPositiveInt(ageStr)<14 || convertStringToPositiveInt(ageStr)>120){
+            System.out.println("Enter a valid age");
+            this.isValid = false;
+            return -1;
+        }
+        else{
+            this.isValid = true;
+            return convertStringToPositiveInt(ageStr);
+        }
+        
+        
+        
     }
     
     /**
