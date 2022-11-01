@@ -119,10 +119,9 @@ public class Form
             this.isValid = false;
             return -1;
         }
-        else{
-            this.isValid = true;
-            return convertStringToPositiveInt(ageStr);
-        }
+        this.isValid = true;
+        return convertStringToPositiveInt(ageStr);
+        
         
         
         
