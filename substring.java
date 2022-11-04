@@ -8,14 +8,15 @@
 public class substring
 {
     public static void main(String[] args){
-        String str = "cat";
-        for (int x = 0; x<str.length(); x++){
-            if(x==str.length()-1){
-                for(int)
+    String str ="cat";
+        for(int i=0;i<str.length();i++){
+            for(int y =0; y<str.length()-i;y++){
+                System.out.println(str.substring(y,i+y));
             }
-            System.out.println(""+x+"  "+str.charAt(x));
-            
-        }
+        }        
+    }
+
+        
     }
     // instance variables - replace the example below with your own
-}
+
