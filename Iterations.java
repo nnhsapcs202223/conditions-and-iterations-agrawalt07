@@ -131,4 +131,67 @@ public class Iterations
      while(value!=-1);
      return sum;
  }
+ 
+ 
+  public static int sumWithBreak(){
+     Scanner s = new Scanner(System.in);
+     int sum = 0;
+     int value;
+     
+     do{
+         System.out.println("Enter a positive integer (-1 to quit): ");
+         
+         /*
+          * Sentinal variable / value 
+          * Value (e.g., -1) used to terminate a loop.
+          * It is often entered by a user.
+          */
+         value = s.nextInt();
+         if (value==-1){
+             
+             /*
+              * Immediatly exit the innermost loop
+              */
+        break;
+    }
+    sum+=value;
+         
+     }
+     while(value!=-1);
+     return sum;
+ }
+ 
+  public static int sumWithContinue(){
+     Scanner s = new Scanner(System.in);
+     int sum = 0;
+     int value = 0;
+     
+     do{
+         System.out.println("Enter a positive integer (-1 to quit): ");
+         /*
+          * hasNextInt method of the Scanner class returns true if the next token
+          *     to be read is an integer; otherwise, it returns false. It does not 
+          *     consume the next token. If there are no tokens in the stream, it 
+          *     waits until there are. 
+          */
+         
+         if(s.hasNextInt()==false){
+             System.out.println("string only please");
+             continue; 
+         }
+         
+         
+         /*
+          * Sentinal variable / value 
+          * Value (e.g., -1) used to terminate a loop.
+          * It is often entered by a user.
+          */
+         value = s.nextInt();
+         if (value!=-1){
+         sum+=value;
+         }
+     }
+     while(value!=-1);
+     return sum;
+ }
 }
