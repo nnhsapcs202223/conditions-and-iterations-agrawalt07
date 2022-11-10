@@ -16,7 +16,7 @@ public class District
         this.republicanVotes = initialRepublicanVotes;
     }
     
-    public int getDemocraticVotes(){
+    public int getDemocratVotes(){
         return this.democraticVotes;
     }
     

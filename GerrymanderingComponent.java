@@ -71,6 +71,10 @@ public class GerrymanderingComponent extends JComponent
      */
     private void promptForState()
     {
+        Scanner s = new Scanner(System.in);
+        System.out.print("This program allows you to search through data about congressional voting districts and determine whether a particular state is gerrymandered\nEnter the state: ");
+        this.selectedState = s.next();
+        
         // TODO: implement method to meet requiremetns specified in the
         //      above Javadoc comment
 
