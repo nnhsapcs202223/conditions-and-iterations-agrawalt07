@@ -8,19 +8,15 @@ import java.util.Random;
 public class Montehall
 {
     
-    public static void main(String[] args){
-        int x = 0;
-        int y = 0;
-        while(x<1001){
-            Random r = new Random();
+    public static void main(String[] args){ 
+        Random r = new Random();int i =0;int y =0;
+        for(int x=0;x<=1000;x++){
             int winningDoor = r.nextInt(3)+1;
             int chosenDoor = r.nextInt(3)+1;
-            
-            if(winningDoor == chosenDoor){
-                y+=1; 
-            }
-            x+=1;
+            if(winningDoor == chosenDoor){i+=1;}
+            else{y+=1;}
         }
-        System.out.println(y);
+        System.out.println("Stayed the same: "+i+" Changed: "+y); 
+        
     }
 }
