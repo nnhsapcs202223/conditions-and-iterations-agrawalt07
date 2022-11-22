@@ -10,7 +10,17 @@ public class CommonLoopAlgorithms
      */
     public static int countMatchesForLength()
     {
-        return 0;
+        Scanner s = new Scanner(System.in);
+        int count = 0;
+        String str = "";
+        while(!str.equals("quit")){
+            System.out.println("Enter words end with quit: ");
+            str = s.next();
+            if(str.length()>3){
+                count+=1;
+            }
+        }
+        return count;
     }
 
     /*
@@ -21,7 +31,17 @@ public class CommonLoopAlgorithms
      */
     public static int countMatchesForPrefix()
     {
-        return 0;
+        Scanner s = new Scanner(System.in);
+        int count = 0;
+        String str = "";
+        while(!str.equals("quit")){
+            System.out.println("Enter words end with quit: ");
+            str = s.next();
+            if(str.substring(0,3).equals("con")){
+                count+=1;
+            }
+        }
+        return count;
     }
 
     /*
@@ -75,5 +95,11 @@ public class CommonLoopAlgorithms
      */
     public static void identifyDigits(int intValue)
     {
+        String str = ""+intValue;
+        for (int x = 0; x<str.length(); x++){
+            System.out.println(str.charAt(x));
+            
+        }
+        
     }
 }
