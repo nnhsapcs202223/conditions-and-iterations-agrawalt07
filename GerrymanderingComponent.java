@@ -73,8 +73,8 @@ public class GerrymanderingComponent extends JComponent
     {
         Scanner s = new Scanner(System.in);
         System.out.print("This program allows you to search through data about congressional voting districts and determine whether a particular state is gerrymandered\nEnter the state: ");
-        this.selectedState = s.next();
-        
+        this.selectedState = s.nextLine();
+
         // TODO: implement method to meet requiremetns specified in the
         //      above Javadoc comment
 
@@ -92,13 +92,13 @@ public class GerrymanderingComponent extends JComponent
     private boolean getEligibleVoters()
     {
         boolean foundState = false;
-        
+
         try
         {
             File votersFile = new File("elgible_voters.txt");
             Scanner votersScanner = new Scanner(votersFile);
             votersScanner.useDelimiter("[\r\n,]+");
-            while(votersScanner.hasNextLine()){
+            while(votersScanner.hasNext()){
                 String state = votersScanner.next();
                 if(state.toLowerCase().equals(this.selectedState.toLowerCase())){
                     this.eligibleVoters = votersScanner.nextInt();
@@ -108,19 +108,18 @@ public class GerrymanderingComponent extends JComponent
             return false; 
             // TODO: implement a looping structure to meet requirements
             //      specified in the above Javadoc comment
-            
+
         }
         catch(FileNotFoundException e )
         {
             System.out.println(e);
         }
-        
 
         return foundState;
     }
 
     /**
-     * Parses the districts.txt file for all lines that match
+     * Parses the districts.txt file for the lines that match
      *      the specified state. For each matching district, invoke
      *      the addDistrictData method.
      * @postcondition totalWastedDemocraticVotes reflects the number
@@ -143,16 +142,49 @@ public class GerrymanderingComponent extends JComponent
             File districtFile = new File("districts.txt");
             Scanner districtsScanner = new Scanner(districtFile );
             districtsScanner.useDelimiter("[\r\n,]+");
-            
-            // TODO: implement looping structures to meet requirements
-            //      specified in the above Javadoc comment
-            
-            
 
-            // TODO: implement algorithm to determine if the specified state 
-            //      is gerrymandered
-            
+            while(districtsScanner.hasNext()){
+                String state = districtsScanner.next();
+                if(state.toLowerCase().equals(this.selectedState.toLowerCase())){
+                    while(districtsScanner.hasNextInt()){
+                        numOfDistricts += 1;
+                        int districtNumber = districtsScanner.nextInt();
+                        int democraticVotes = districtsScanner.nextInt();
+                        int republicanVotes = districtsScanner.nextInt();
+                        addDistrictData(districtNumber,democraticVotes, republicanVotes);
+                        if(democraticVotes>republicanVotes){
+                            this.totalWastedDemocraticVotes += democraticVotes-(0.5*(democraticVotes+republicanVotes)+0.5);
+                            this.totalWastedRepublicanVotes += republicanVotes;
+                        }
+                        else{
+                            this.totalWastedRepublicanVotes += republicanVotes-(0.5*(republicanVotes+democraticVotes)+0.5);
+                            this.totalWastedDemocraticVotes += democraticVotes;                                
+                        }
+                    }
+                    if(!(numOfDistricts<3)){
+                        if(this.totalWastedRepublicanVotes>this.totalWastedDemocraticVotes &&(double)(this.totalWastedRepublicanVotes-this.totalWastedDemocraticVotes)/((long)(this.totalWastedDemocraticVotes+this.totalWastedRepublicanVotes))>=0.07){
+                            System.out.println(state+" state gerrymandered benefitting Rebuplicans");
+                            this.isGerrymanderedForRepublicans = true;
+                        }
+                        else if((double)(this.totalWastedDemocraticVotes-this.totalWastedRepublicanVotes)/((double)(this.totalWastedDemocraticVotes+this.totalWastedRepublicanVotes))>=0.07){
+                            System.out.println(state+" state gerrymandered benefitting Democrats");
+                            this.isGerrymanderedForDemocrats = true;
+                        }
+                        else{
+                            System.out.println("State is okay");
+                        }
+                    }
+                }
+            }
         }
+
+        // TODO: implement looping structures to meet requirements
+        //      specified in the above Javadoc comment
+
+
+        // TODO: implement algorithm to determine if the specified state 
+        //      is gerrymandered
+
         catch(FileNotFoundException e)
         {
             System.out.println(e);
@@ -175,7 +207,6 @@ public class GerrymanderingComponent extends JComponent
         drawDistricts(g2);
     }
 
-    
     /**
      * Add the number of democratic votes and republican votes associated with the specified
      *      district number to the list of districts in the state being analyzed.
@@ -188,7 +219,6 @@ public class GerrymanderingComponent extends JComponent
     {
         this.districts.add(new District(districtNumber, democraticVotes, republicanVotes));
     }
-
 
     /**
      * Draws the header for the table that displays the state being analyzed and
@@ -212,7 +242,6 @@ public class GerrymanderingComponent extends JComponent
 
     }
 
-    
     /**
      * Draws the bar visualizaing the number of democratic and republican votes for
      *      each district in state being analyzed.
@@ -224,24 +253,24 @@ public class GerrymanderingComponent extends JComponent
         final int BAR_HEIGHT = 25;
         final int BAR_SPACING = 5;
         final int BAR_START_Y = 25;
-        
+
         int y = BAR_START_Y;
-        
+
         for(District district : this.districts)
         {
             double democraticWidth = (double)district.getDemocratVotes() /
-                    (district.getDemocratVotes() + district.getRepublicanVotes()) * WIDTH;
-            
+                (district.getDemocratVotes() + district.getRepublicanVotes()) * WIDTH;
+
             Rectangle2D.Double democraticBar =
-                    new Rectangle2D.Double(0, y, democraticWidth, BAR_HEIGHT);
+                new Rectangle2D.Double(0, y, democraticWidth, BAR_HEIGHT);
             g2.setColor(Color.BLUE);
             g2.fill(democraticBar);
 
             Rectangle2D.Double republicanBar =
-                    new Rectangle2D.Double(democraticWidth, y, WIDTH - democraticWidth, BAR_HEIGHT);
+                new Rectangle2D.Double(democraticWidth, y, WIDTH - democraticWidth, BAR_HEIGHT);
             g2.setColor(Color.RED);
             g2.fill(republicanBar);
-            
+
             y += BAR_HEIGHT + BAR_SPACING;
         }
     }

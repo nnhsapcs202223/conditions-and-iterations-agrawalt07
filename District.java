@@ -1,4 +1,4 @@
-
+ 
 /**
  * Models a voting district.
  *
