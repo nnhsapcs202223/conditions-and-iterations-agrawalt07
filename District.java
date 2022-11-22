@@ -8,19 +8,19 @@
 public class District
 {
     private int districtNumber;
-    private int democraticVotes;
+    private int democratVotes;
     private int republicanVotes;
-    public District(int initialDistrictNumber, int initialDemocraticVotes, int initialRepublicanVotes){
+    public District(int initialDistrictNumber, int initialDemocratVotes, int initialRepublicanVotes){
         this.districtNumber = initialDistrictNumber;
-        this.democraticVotes = initialDemocraticVotes;
+        this.democratVotes = initialDemocratVotes;
         this.republicanVotes = initialRepublicanVotes;
     }
     
     public int getDemocratVotes(){
-        return this.democraticVotes;
+        return this.democratVotes;
     }
     
     public int getRepublicanVotes(){
-        return this.democraticVotes;
+        return this.republicanVotes;
     }
 }
